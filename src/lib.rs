@@ -39,6 +39,38 @@ pub mod helpers {
         }
         peptide
     }
+
+    pub fn verbose_translate(peptide: &String) -> String {
+        let mut verbose_peptide = String::new();
+        for amino_acid in peptide.chars() {
+            verbose_peptide.push_str(match amino_acid {
+                'A' => "Ala",
+                'R' => "Arg",
+                'N' => "Asn",
+                'D' => "Asp",
+                'C' => "Cys",
+                'Q' => "Gln",
+                'E' => "Glu",
+                'G' => "Gly",
+                'H' => "His",
+                'I' => "Ile",
+                'L' => "Leu",
+                'K' => "Lys",
+                'M' => "Met",
+                'F' => "Phe",
+                'P' => "Pro",
+                'S' => "Ser",
+                'T' => "Thr",
+                'W' => "Trp",
+                'Y' => "Tyr",
+                'V' => "Val",
+                '-' => "Stop",
+                _ => "Unknown",
+            });
+            verbose_peptide.push_str(" ");
+        }
+        verbose_peptide
+    }
 }
 
 #[cfg(test)]
@@ -75,5 +107,15 @@ mod tests {
         let peptide = translate(&sequence);
         assert_ne!(peptide, "MMM");
         assert_eq!(peptide, "MWKMWKMWK");
+    }
+
+    #[test]
+    fn should_verbose_translate() {
+        let peptide = String::from("MWKMWKMWK-*-RAS");
+        let verbose_peptide = verbose_translate(&peptide);
+        assert_eq!(
+            verbose_peptide,
+            "Met Trp Lys Met Trp Lys Met Trp Lys Stop Unknown Stop Arg Ala Ser "
+        );
     }
 }
