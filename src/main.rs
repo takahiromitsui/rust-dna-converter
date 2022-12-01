@@ -1,5 +1,7 @@
 use std::io::{self};
 
+use na_converter::helpers::convert_to_rna;
+
 fn main() {
     println!("Enter your DNA sequence:");
     let mut sequence = String::new();
@@ -13,10 +15,6 @@ fn main() {
     println!("\nRNA:\n{}", rna_sequence);
     println!("\nAmino Acid Sequence:\n{}", peptide);
     println!("\nVerbose Amino Acid Sequence:\n{}", verbose_peptide);
-}
-
-fn convert_to_rna(sequence: &String) -> String {
-    sequence.replace("t", "u")
 }
 
 fn split_sequence(sequence: &String) -> Vec<String> {
