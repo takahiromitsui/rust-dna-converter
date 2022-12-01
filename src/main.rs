@@ -1,17 +1,18 @@
-use std::io;
+use std::io::{self};
 
 fn main() {
+    println!("Enter your DNA sequence:");
     let mut sequence = String::new();
     io::stdin().read_line(&mut sequence).unwrap();
     let sequence = sequence.trim().to_string().to_lowercase();
     let rna_sequence = convert_to_rna(&sequence);
-    println!("{}", rna_sequence);
     let splitted = split_sequence(&rna_sequence);
     let peptide = translate(&splitted);
     let verbose_peptide = verbose_translate(&peptide);
-    println!("{:?}", splitted);
-    println!("{}", peptide);
-    println!("{}", verbose_peptide);
+
+    println!("\nRNA:\n{}", rna_sequence);
+    println!("\nAmino Acid Sequence:\n{}", peptide);
+    println!("\nVerbose Amino Acid Sequence:\n{}", verbose_peptide);
 }
 
 fn convert_to_rna(sequence: &String) -> String {
