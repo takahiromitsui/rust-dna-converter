@@ -8,9 +8,10 @@ fn main() {
     println!("{}", rna_sequence);
     let splitted = split_sequence(&rna_sequence);
     let peptide = translate(&splitted);
+    let verbose_peptide = verbose_translate(&peptide);
     println!("{:?}", splitted);
     println!("{}", peptide);
-
+    println!("{}", verbose_peptide);
 }
 
 fn convert_to_rna(sequence: &String) -> String {
@@ -31,7 +32,7 @@ fn translate(sequence: &Vec<String>) -> String {
         peptide.push_str(match codon.as_str() {
             "gcg" | "gcc" | "gca" | "gct" => "A",
             "cgu" | "cgc" | "cga" | "cgg" | "aga" | "agg" => "R",
-            "aau"| "aac" => "N",
+            "aau" | "aac" => "N",
             "gau" | "gac" => "D",
             "ugu" | "ugc" => "C",
             "caa" | "cag" => "Q",
@@ -39,7 +40,7 @@ fn translate(sequence: &Vec<String>) -> String {
             "ggu" | "ggc" | "gga" | "ggg" => "G",
             "cau" | "cac" => "H",
             "auu" | "auc" | "aua" => "I",
-            "cuu" | "cuc" | "cua" | "cug"|"uua"|"uug" => "L",
+            "cuu" | "cuc" | "cua" | "cug" | "uua" | "uug" => "L",
             "aaa" | "aag" => "K",
             "aug" => "M",
             "uuu" | "uuc" => "F",
@@ -54,4 +55,36 @@ fn translate(sequence: &Vec<String>) -> String {
         });
     }
     peptide
+}
+
+fn verbose_translate(peptide: &String) -> String {
+    let mut verbose_peptide = String::new();
+    for amino_acid in peptide.chars() {
+        verbose_peptide.push_str(match amino_acid {
+            'A' => "Ala",
+            'R' => "Arg",
+            'N' => "Asn",
+            'D' => "Asp",
+            'C' => "Cys",
+            'Q' => "Gln",
+            'E' => "Glu",
+            'G' => "Gly",
+            'H' => "His",
+            'I' => "Ile",
+            'L' => "Leu",
+            'K' => "Lys",
+            'M' => "Met",
+            'F' => "Phe",
+            'P' => "Pro",
+            'S' => "Ser",
+            'T' => "Thr",
+            'W' => "Trp",
+            'Y' => "Tyr",
+            'V' => "Val",
+            '-' => "Stop",
+            _ => "Unknown",
+        });
+        verbose_peptide.push_str(" ");
+    }
+    verbose_peptide
 }
