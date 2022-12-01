@@ -1,6 +1,6 @@
 use std::io::{self};
 
-use na_converter::helpers::convert_to_rna;
+use na_converter::helpers::*;
 
 fn main() {
     println!("Enter your DNA sequence:");
@@ -15,14 +15,6 @@ fn main() {
     println!("\nRNA:\n{}", rna_sequence);
     println!("\nAmino Acid Sequence:\n{}", peptide);
     println!("\nVerbose Amino Acid Sequence:\n{}", verbose_peptide);
-}
-
-fn split_sequence(sequence: &String) -> Vec<String> {
-    sequence
-        .as_bytes()
-        .chunks(3)
-        .map(|chunk| String::from_utf8(chunk.to_vec()).unwrap())
-        .collect()
 }
 
 fn translate(sequence: &Vec<String>) -> String {
